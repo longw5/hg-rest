@@ -94,10 +94,22 @@ public class GeneralService extends QueryTemplate{
 		//拼接条件
 		if(Constants.WHERE_FLAG_Y == whereFlag){//如果是条件查询
 			if(!StringUtils.isEmpty(payerId)){
-				if(Constants.LIKE_FLAG_Y == payerIdFlag)//如果是模糊查询
-					sb.append(" and payer_id_number like '%"+payerId+"%'");
-				else
-					sb.append(" and payer_id_number='"+payerId+"'");
+				//如果是模糊查询
+				if(Constants.LIKE_FLAG_Y == payerIdFlag){
+					
+					if(("ods_buyer_info_fx_100").equals(tableName)){
+						sb.append(" and buyer_id_number like '%"+payerId+"%'");
+					}else{
+						sb.append(" and payer_id_number like '%"+payerId+"%'");
+					}
+				}
+				else{
+					if(("ods_buyer_info_fx_100").equals(tableName)){
+						sb.append(" and buyer_id_number='"+payerId+"'");
+					}else{
+						sb.append(" and payer_id_number='"+payerId+"'");
+					}
+				}
 			}
 			
 			if(!StringUtils.isEmpty(ageSeg))
